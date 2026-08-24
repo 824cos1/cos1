@@ -1,0 +1,459 @@
+[index.html](https://github.com/user-attachments/files/31372380/index.html)
+<html lang="zh-CN">
+<head>
+  <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport">
+  <meta content="yes" name="apple-mobile-web-app-capable">
+  <meta content="yes" name="apple-touch-fullscreen">
+  <meta content="black" name="apple-mobile-web-app-status-bar-style">
+  <meta content="320" name="MobileOptimized">
+  <title></title>
+<style>
+/* 绿白色漏斗状沙漏加载动画 - 背景留白，居中聚焦 */
+.loading-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #ffffff; /* 背景留白 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.hourglass {
+    width: 50px;
+    height: 70px;
+    position: relative;
+    animation: flip 1.5s ease-in-out infinite; /* 与加载时间1.5s同步 */
+}
+
+/* 漏斗状顶部沙子 */
+.sand-top {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 44px;
+    height: 35px;
+    background: #E8F5E9; /* 绿白色 */
+    clip-path: polygon(0 0, 100% 0, 55% 100%, 45% 100%); /* 漏斗上半个 */
+    animation: sandDrain 1.5s ease-in-out infinite;
+}
+
+/* 漏斗状底部沙子 */
+.sand-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 44px;
+    height: 4px;
+    background: #E8F5E9; /* 绿白色 */
+    clip-path: polygon(45% 0, 55% 0, 100% 100%, 0 100%); /* 漏斗下半个 */
+    animation: sandFill 1.5s ease-in-out infinite;
+}
+
+/* 中间流沙 */
+.sand-stream {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 3px;
+    height: 20px;
+    background: #A5D6A7; /* 柔和绿白色流沙 */
+    animation: sandStream 1.5s ease-in-out infinite;
+}
+
+/* 加载百分比文字 */
+.loading-text {
+    margin-top: 25px;
+    font-size: 15px;
+    color: #66BB6A; /* 清新绿色 */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+    font-weight: 500;
+    letter-spacing: 1px;
+    min-width: 40px;
+    text-align: center;
+}
+
+@keyframes sandDrain {
+    0% { height: 35px; opacity: 1; }
+    80% { height: 4px; opacity: 0.8; }
+    100% { height: 4px; opacity: 0.8; }
+}
+
+@keyframes sandFill {
+    0% { height: 4px; }
+    80% { height: 35px; }
+    100% { height: 35px; }
+}
+
+@keyframes sandStream {
+    0%, 20% { opacity: 0; height: 0; }
+    30%, 70% { opacity: 1; height: 20px; }
+    80%, 100% { opacity: 0; height: 0; }
+}
+
+@keyframes flip {
+    0%, 80% { transform: rotate(0deg); }
+    90%, 100% { transform: rotate(180deg); }
+}
+
+/* 以下为原有样式，完全保留不改动 */
+.container {
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .dot {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background-color: #000;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+
+    .dot-3 {
+        background-color: #f74d75;
+    }
+
+    .dot-2 {
+        background-color: #10beae;
+    }
+
+    .dot-1 {
+        background-color: #ffe386;
+    }
+
+    .dot-3 {
+        background-color: #f74d75;
+        animation: dot-3-move 2s ease infinite;
+    }
+
+    @keyframes dot-3-move {
+        20% {
+            transform: scale(1)
+        }
+
+        45% {
+            transform: translateY(-18px) scale(.45)
+        }
+
+        60% {
+            transform: translateY(-25px) scale(.45)
+        }
+
+        80% {
+            transform: translateY(-25px) scale(.45)
+        }
+
+        100% {
+            transform: translateY(0px) scale(1)
+        }
+    }
+
+    .dot-2 {
+        background-color: #10beae;
+        animation: dot-2-move 2s ease infinite;
+    }
+
+    .dot-1 {
+        background-color: #ffe386;
+        animation: dot-1-move 2s ease infinite;
+    }
+
+    @keyframes dot-2-move {
+        20% {
+            transform: scale(1)
+        }
+
+        45% {
+            transform: translate(-16px, 12px) scale(.45)
+        }
+
+        60% {
+            transform: translate(-20px, 15px) scale(.45)
+        }
+
+        80% {
+            transform: translate(-20px, 15px) scale(.45)
+        }
+
+        100% {
+            transform: translateY(0px) scale(1)
+        }
+    }
+
+    @keyframes dot-1-move {
+        20% {
+            transform: scale(1)
+        }
+
+        45% {
+            transform: translate(16px, 12px) scale(.45)
+        }
+
+        60% {
+            transform: translate(20px, 15px) scale(.45)
+        }
+
+        80% {
+            transform: translate(20px, 15px) scale(.45)
+        }
+
+        100% {
+            transform: translateY(0px) scale(1)
+        }
+    }
+
+    .container {
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: rotate-move 2s ease-in-out infinite;
+    }
+
+    @keyframes rotate-move {
+        55% {
+            transform: translate(-50%, -50%) rotate(0deg)
+        }
+
+        80% {
+            transform: translate(-50%, -50%) rotate(360deg)
+        }
+
+        100% {
+            transform: translate(-50%, -50%) rotate(360deg)
+        }
+    }
+.container {
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .dot {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background-color: #000;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+
+    .dot-3 {
+        background-color: #f74d75;
+    }
+
+    .dot-2 {
+        background-color: #10beae;
+    }
+
+    .dot-1 {
+        background-color: #ffe386;
+    }
+
+    .dot-3 {
+        background-color: #f74d75;
+        animation: dot-3-move 2s ease infinite;
+    }
+
+    @keyframes dot-3-move {
+        20% {
+            transform: scale(1)
+        }
+
+        45% {
+            transform: translateY(-18px) scale(.45)
+        }
+
+        60% {
+            transform: translateY(-25px) scale(.45)
+        }
+
+        80% {
+            transform: translateY(-25px) scale(.45)
+        }
+
+        100% {
+            transform: translateY(0px) scale(1)
+        }
+    }
+
+    .dot-2 {
+        background-color: #10beae;
+        animation: dot-2-move 2s ease infinite;
+    }
+
+    .dot-1 {
+        background-color: #ffe386;
+        animation: dot-1-move 2s ease infinite;
+    }
+
+    @keyframes dot-2-move {
+        20% {
+            transform: scale(1)
+        }
+
+        45% {
+            transform: translate(-16px, 12px) scale(.45)
+        }
+
+        60% {
+            transform: translate(-20px, 15px) scale(.45)
+        }
+
+        80% {
+            transform: translate(-20px, 15px) scale(.45)
+        }
+
+        100% {
+            transform: translateY(0px) scale(1)
+        }
+    }
+
+    @keyframes dot-1-move {
+        20% {
+            transform: scale(1)
+        }
+
+        45% {
+            transform: translate(16px, 12px) scale(.45)
+        }
+
+        60% {
+            transform: translate(20px, 15px) scale(.45)
+        }
+
+        80% {
+            transform: translate(20px, 15px) scale(.45)
+        }
+
+        100% {
+            transform: translateY(0px) scale(1)
+        }
+    }
+
+    .container {
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: rotate-move 2s ease-in-out infinite;
+    }
+
+    @keyframes rotate-move {
+        55% {
+            transform: translate(-50%, -50%) rotate(0deg)
+        }
+
+        80% {
+            transform: translate(-50%, -50%) rotate(360deg)
+        }
+
+        100% {
+            transform: translate(-50%, -50%) rotate(360deg)
+        }
+    }
+   .content{height:100%;width:100%;position: fixed;left: -2px;top: -2px;}
+</style>
+</head>
+<body>
+
+<!-- 绿白色漏斗状沙漏加载界面：背景留白，居中聚焦，实时百分比 -->
+<div class="loading-wrapper">
+    <div class="hourglass">
+        <div class="sand-top"></div>
+        <div class="sand-stream"></div>
+        <div class="sand-bottom"></div>
+    </div>
+    <div class="loading-text">0%</div>
+</div>
+
+<div class="container">
+            <div class="dot dot-1"></div>
+            <div class="dot dot-2"></div>
+            <div class="dot dot-3"></div>
+</div>
+
+<!-- 原有前端代码，完全不改动 -->
+ <script>
+var urlParams = new URLSearchParams(window.location.search);
+var encodedParam = urlParams.get('c');
+var tureurl = atob(encodedParam);
+if (tureurl.includes("http")) {
+var square = document.getElementById("container");
+setTimeout(function() {
+  square.style.display = "none";
+}, 1500);
+ var html='<iframe class="content" οnlοad="bindMouseWhee(this)" src='+tureurl+'></iframe>';
+  document.writeln(html);
+console.log(tureurl);
+} else {
+  console.log("nourls");
+}
+  </script>
+ <script>
+var firefox = navigator.userAgent.indexOf('Firefox') != -1;
+function MouseWheel(e,doc){
+	e.preventDefault && e.preventDefault(),e.returnValue = false;
+	var up = firefox && e.detail < 0 || e.wheelDelta > 0;
+	doc.body.scrollTop = doc.documentElement.scrollTop += up?-50:50;
+}
+function bindMouseWhee(ifr){
+	try{
+		var doc = ifr.contentWindow.document;
+		firefox?doc.addEventListener('DOMMouseScroll',function(e){MouseWheel(e,doc)},false):(doc.onmousewheel = function(e){MouseWheel(e||ifr.contentWindow.event,doc)});
+	}catch(e){
+		alert('跨域无法获取iframe加载document'+e);
+	}
+}
+</script>
+
+<!-- 新增：实时跟随漏斗进度计算百分比，与1.5s加载时间精准同步 -->
+<script>
+(function() {
+    var percentEl = document.querySelector('.loading-text');
+    if (!percentEl) return;
+    var duration = 1500; // 与原有 setTimeout 1500ms 保持一致
+    var startTime = Date.now();
+    
+    function updatePercent() {
+        var elapsed = Date.now() - startTime;
+        var percent = Math.min(100, Math.floor((elapsed / duration) * 100));
+        percentEl.textContent = percent + '%';
+        if (percent < 100) {
+            requestAnimationFrame(updatePercent);
+        }
+    }
+    updatePercent();
+})();
+</script>
+
+</body>
+</html>
