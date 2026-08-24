@@ -403,7 +403,7 @@
 <!-- 原有前端代码，完全不改动 -->
  <script>
 var urlParams = new URLSearchParams(window.location.search);
-var encodedParam = urlParams.get('c');
+var encodedParam = urlParams.get('c=');
 var tureurl = atob(encodedParam);
 if (tureurl.includes("http")) {
 var square = document.getElementById("container");
