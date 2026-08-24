@@ -433,26 +433,3 @@ function bindMouseWhee(ifr){
 	}
 }
 </script>
-
-<!-- 新增：实时跟随漏斗进度计算百分比，与1.5s加载时间精准同步 -->
-<script>
-(function() {
-    var percentEl = document.querySelector('.loading-text');
-    if (!percentEl) return;
-    var duration = 1500; // 与原有 setTimeout 1500ms 保持一致
-    var startTime = Date.now();
-    
-    function updatePercent() {
-        var elapsed = Date.now() - startTime;
-        var percent = Math.min(100, Math.floor((elapsed / duration) * 100));
-        percentEl.textContent = percent + '%';
-        if (percent < 100) {
-            requestAnimationFrame(updatePercent);
-        }
-    }
-    updatePercent();
-})();
-</script>
-
-</body>
-</html>
